@@ -1,5 +1,5 @@
 
-include ../../../support/include.mk
+include ../include.mk
 
 include ../vsn.mk
 VSN=$(GETTEXT_VSN)
