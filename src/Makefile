@@ -5,6 +5,7 @@ include ../vsn.mk
 VSN=$(GETTEXT_VSN)
 
 MODULES=gettext \
+	gettext_generate \
 	gettext_compile \
 	gettext_server \
 	gettext_sup \
