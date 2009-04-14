@@ -1,0 +1,52 @@
+h2. Generating modules
+
+The new module gettext_generated is used like this:
+
+<pre>
+1> gettext_generate:compile(se, "swedish.po").
+{module,se}
+2> gettext_generate:compile(es, "spanish.po").
+{module,es}
+</pre>
+
+This generated two modules, called @se@ and @es@, from gettext dot-po files.
+
+Lets say you have an application with text you want translated.
+
+<pre>
+-module(example).
+-export([run/0]).
+
+gettext(Atom) ->
+    case get(i18n_module) of
+      undefined ->
+       atom_to_list(Atom);
+      Mod ->
+       Mod:gettext(Atom)
+    end.
+
+run() ->
+    io:format("~s~n", [gettext('Hello World')]).
+</pre>
+
+When you run @example:run()@ you want the translated string out.
+
+<pre>
+13> put(i18n_module, se), example:run().
+Hej V\344rld
+ok
+14> put(i18n_module, es), example:run().
+Hola Mundo
+ok
+</pre>
+
+And of course, if you have no module set, it will fall back on converting the atom text to string directly.
+
+<pre>
+16> erase(i18n_module), example:run().  
+Hello World
+ok
+</pre>
+
+Voila!
+
