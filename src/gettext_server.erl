@@ -120,7 +120,7 @@ get_gettext_dir(CallBackMod) ->
     case os:getenv("GETTEXT_DIR") of
 	false -> 
 	    case catch CallBackMod:gettext_dir() of
-		Dir when list(Dir) -> Dir;
+		Dir when is_list(Dir) -> Dir;
 		_                  -> code:priv_dir(gettext) % fallback
 	    end;
 	Dir   -> Dir
